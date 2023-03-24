@@ -78,3 +78,30 @@ int solution(int n) {
    
     return answer;
 }
+int solution(int order) {
+    int answer = 0;
+    while(order>0)
+    {
+        if(order % 10 == 3 || order % 10 == 6 || order % 10 == 9)
+        {answer+=1;
+        }
+        order/=10;
+    }
+    return answer;
+}
+
+//약수구하기
+vector<int> solution(int n) {
+    vector<int> answer;
+    
+    for(int i=1;i<=n;++i)
+    {
+        if(n%i==0)
+        {
+         answer.push_back(i);   
+        }
+    }
+    sort(answer.begin(),answer.end());
+    
+    return answer;
+}
