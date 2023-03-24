@@ -28,3 +28,53 @@ vector<int> solution(vector<int> numbers, string direction) {
     }
     return numbers;
 }
+
+vector<int> solution(vector<int> array) 
+{
+    int max_num = array[0];
+    int max_idx = 0;
+
+    for(int i = 1; i < array.size(); i++) 
+    {
+        if(array[i] > max_num) 
+        {
+            max_num = array[i];
+            max_idx = i;
+        }
+    }
+
+    return {max_num, max_idx};
+}
+
+string solution(int age) {
+    string answer = "";
+
+   
+    int quotient = age / 10;
+    int remainder = age % 10;
+
+   
+    while (quotient > 0) {
+        answer = char(quotient % 10 + 'a') + answer;
+        quotient /= 10;
+    }
+
+
+    answer += char(remainder + 'a');
+
+    return answer;
+}
+
+int solution(int n) {
+    int answer = 0;
+    while(true)
+    {answer++;
+        if((6*answer)%n ==0)
+        {
+            break;
+        }
+        
+    }
+   
+    return answer;
+}
