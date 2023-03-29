@@ -244,3 +244,124 @@ vector<vector<int>> solution(vector<int> num_list, int n) {
     }
     return answer;
 }
+
+int solution(int i, int j, int k) {
+    int answer = 0;
+    
+   for(int n= i;n<=j;n++)
+   {
+       string str = to_string(n);
+       for(int m= 0;m<str.length();m++)
+       {
+           if((int)(str[m]-'0')==k) //아스키 코드 변환
+               answer++;
+       }
+   }
+ 
+    return answer;
+}
+
+int solution(vector<int> array, int n) {
+    int answer = array[0];  // 첫번째 숫자가 가장 가까운 경우
+    int num =abs(array[0]-n);
+    int num2=0;
+    for(int i=1;i<array.size();i++)
+    {
+        if(num>abs(array[i]-n))
+        {
+            num=abs(array[i]-n);
+            num2=i;
+            answer= array[i];
+        }
+        else if(num==abs(array[i]-n))
+        {
+            if(array[num2]<array[i])
+            {
+                answer=array[num2];
+            }
+            else if(array[num2]>array[i])
+            {
+                answer = array[i];
+            }
+        }
+    }
+    
+    return answer;
+}
+
+vector<int> solution(vector<int> emergency) {
+    vector<int> answer;
+    int num=emergency.size();
+    
+    for(int i = 0; i< emergency.size(); i++)
+    {
+        for(int j =0;j<emergency.size();j++)
+        {
+            if(emergency[i]>emergency[j])
+            {
+                num--;
+            }
+         
+        }
+       answer.push_back(num);
+        num=emergency.size();
+    }
+    
+    
+    return answer;
+}
+
+//딱 한번만 등장하는 문자 세기
+string solution(string s) {
+    string answer = "";
+    int count =0;
+    for(int i=0;i<s.size();i++)
+    {
+        for(int n=0;n<s.size();n++)
+        {
+            if(s[i]==s[n])
+            {
+                count++;
+            }
+        }
+        if(count ==1)
+            {
+                answer+=s[i]; 
+            }
+            count =0;
+    }
+    sort(answer.begin(),answer.end());
+    return answer;
+}
+
+
+//이진수 덧셈 잘모르겠음
+string solution(string bin1, string bin2) 
+{
+    string result;
+    int carry = 0;
+    int i = bin1.length() - 1;
+    int j = bin2.length() - 1;
+    
+    while (i >= 0 || j >= 0 || carry > 0) 
+    {
+        int sum = carry;
+        
+        if (i >= 0) 
+        {
+            sum += bin1[i] - '0';
+            i--;
+        }
+        
+        if (j >= 0) 
+        {
+            sum += bin2[j] - '0';
+            j--;
+        }
+        
+        carry = sum / 2;
+        sum = sum % 2;
+        result = to_string(sum) + result;
+    }
+return result; 
+}
