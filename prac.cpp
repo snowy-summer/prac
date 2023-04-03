@@ -2,6 +2,7 @@
 #include <vector>
 #include <unordered_set>
 #include <map>
+#include <sstream>
 
 
 
@@ -364,4 +365,154 @@ string solution(string bin1, string bin2)
         result = to_string(sum) + result;
     }
 return result; 
+}
+
+int solution(string my_string) {
+    int sum =0;
+    int num = 0;
+    
+    for (char c:my_string)
+    {
+        if(isdigit(c))
+        {
+            num=num*10+(c-'0'); 
+//예를 들어, "123" 문자열에서 처음에는 num = 0이고,
+// "1" 문자를 만나면 num = 1이 되고, "2" 문자를 만나면 num = 12가 됩니다. 
+//다음 문자가 숫자가 아니라면, 현재까지 찾은 숫자 num을 sum에 더하고
+// num을 다시 0으로 초기화합니다. 마지막으로 sum에 num을 더한 값을 반환합니다.
+        }
+        else
+        {
+            sum+=num;
+            num =0;
+        }
+
+    }
+    sum +=num;
+    
+    return sum;
+}
+
+vector<int> solution(int n) {
+    vector<int> answer;
+    int i =0;
+    int num = 2;
+   while(n>1)
+   {
+       if( n%num==0)
+       {
+           if(answer.empty()||answer[i]!=num)
+           {answer.push_back(num);
+            if(answer[i]!=num)
+            {i++;
+            }
+           }
+           n/=num;
+       }
+       else
+       {
+           num++;
+       }
+        
+   }
+    sort(answer.begin(),answer.end());
+    return answer;
+}
+
+int solution(vector<int> array) {
+    int answer = 0;
+    
+    for(int num :array)
+    {
+        while(num>0)
+        {
+            if(num%10==7)
+            {
+                answer++; 
+            }
+            num/=10;
+                
+        }
+    }
+    
+    
+    return answer;
+}
+
+int solution(vector<int> numbers, int k) {
+    int answer = 0;
+    int count=0;
+    
+    for(int i = 0;i<numbers.size();i++)
+    {
+        answer =numbers[i];
+        ++count;
+        if(count ==k)
+        { break;
+        }
+        
+        ++i;
+        if(i==(numbers.size()-1))
+        {
+            i= -1;
+        }
+        else if(i==numbers.size())
+        {
+            i=0;
+        }
+    }
+    return answer;
+}
+
+int solution(string s) {
+    vector<int> nums;  
+    int result = 0;    
+
+    
+    stringstream ss(s);
+    string token;
+    while (getline(ss, token, ' ')) {
+        if (token == "Z") {
+            result -= nums.back();
+            nums.pop_back();
+        } else {
+            int num = stoi(token);
+            nums.push_back(num);
+            result += num;
+        }
+    }
+
+    return result;
+}
+
+long long solution(string numbers) {
+    long long answer = 0;
+    map<string,int> num ={{"zero",0},{"one",1},{"two",2},{"three",3},{"four",4},{"five",5},{"six",6},{"seven",7},{"eight",8},{"nine",9}};
+    
+    string num_str = "";
+    
+    for (char c : numbers) 
+    {
+        
+            num_str += c;
+            if (num.find(num_str) != num.end()) 
+            {
+                answer = answer * 10 + num[num_str];
+                num_str = "";
+            }
+        
+    }
+    
+    return answer;
+}
+
+vector<string> solution(string my_str, int n) {
+    vector<string> answer;
+    
+    for (int i = 0; i < my_str.size(); i += n) 
+    {
+        answer.push_back(my_str.substr(i, n));
+    }
+   
+    return answer;
 }
