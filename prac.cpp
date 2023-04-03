@@ -516,3 +516,173 @@ vector<string> solution(string my_str, int n) {
    
     return answer;
 }
+
+int solution(string my_string) {
+    stringstream ss(my_string);  // 입력 문자열을 stringstream에 저장
+    int result = 0;
+    char op;  // 연산자를 저장할 변수
+    ss >> result;  // 첫번째 숫자를 result에 저장
+    
+    // 연산자와 숫자를 번갈아가면서 처리
+    while (ss >> op) {
+        int num;
+        ss >> num;
+        if (op == '+') {
+            result += num;
+        } else if (op == '-') {
+            result -= num;
+        }
+    }
+    return result;
+}
+
+
+int solution(vector<int> sides) {
+    int answer = 0;
+    int sum=0;
+    sort(sides.begin(),sides.end());
+
+     
+     answer=sides[0]+sides[0]-1;
+    
+    return answer;
+}
+
+int solution(vector<string> spell, vector<string> dic) 
+{
+  
+    sort(spell.begin(),spell.end());
+    do{
+        string word;
+        for(string c: spell)
+        {
+            word+=c;
+        }
+        if(find(dic.begin(),dic.end(),word)!=dic.end())
+        {
+            return 1;
+        }
+    } while(next_permutation(spell.begin(),spell.end()));
+    
+    return 2;
+}
+
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<string> keyinput, vector<int> board) {
+    vector<int> answer;
+    answer.push_back(0);
+    answer.push_back(0);
+    for(int i = 0; i<keyinput.size();i++)
+    {
+        if(keyinput[i]=="left")
+        {answer[0]-=1;}
+        else if(keyinput[i]=="right")
+        {answer[0]+=1;}
+        else if(keyinput[i]=="down")
+        {answer[1]-=1;}
+        else if(keyinput[i]=="up")
+        {answer[1]+=1;}
+        
+         if(answer[0]>(board[0]/2))
+        {
+            answer[0]=board[0]/2;
+        }
+        else if(answer[0]< -(board[0]/2))
+        {
+            answer[0]= -(board[0]/2);
+        }
+    
+        if(answer[1]>(board[1]/2))
+        {
+            answer[1]=board[1]/2;
+        }
+        else if(answer[1]< -(board[1]/2))
+        {
+            answer[1]= -(board[1]/2);
+        }
+    }
+       
+    
+    return answer;
+}
+
+int solution(vector<vector<int>> dots) {
+   
+    int x_min = min({dots[0][0], dots[1][0], dots[2][0], dots[3][0]});
+    int x_max = max({dots[0][0], dots[1][0], dots[2][0], dots[3][0]});
+    int y_min = min({dots[0][1], dots[1][1], dots[2][1], dots[3][1]});
+    int y_max = max({dots[0][1], dots[1][1], dots[2][1], dots[3][1]});
+    
+    
+    int width = abs(x_max - x_min);
+    int height = abs(y_max - y_min);
+    int area = width * height;
+    
+    return area;
+}
+
+int solution(int M, int N) {
+    int answer = 0;
+    answer=M-1+(N-1)*M;
+    return answer;
+}
+
+string solution(vector<string> id_pw, vector<vector<string>> db) {
+    string answer = "";
+    string ans="";
+    for(int i =0;i<db.size();i++)
+    {
+      if(id_pw[0]==db[i][0]&&id_pw[1]==db[i][1])
+    {
+        answer+="login";
+          ans=answer;
+          answer="";
+          break;
+        
+    }
+    else if(id_pw[0]==db[i][0]&&id_pw[1]!=db[i][1])
+    {
+        answer+="wrong pw";
+        ans=answer;
+        answer="";
+    }
+    else if(id_pw[0]!=db[i][0]&&id_pw[1]!=db[i][1])
+    {
+        answer+="fail";
+        ans=answer;
+        answer="";
+    }  
+    }
+    
+    return ans;
+}
+
+int solution(int chicken) {
+    int coupons = chicken; 
+    int service_chicken = 0; 
+
+    while (coupons >= 10) { 
+        service_chicken++; 
+        coupons -= 10;
+        coupons++;
+    }
+
+    return service_chicken;
+}
+
+//최대공약수 이용
+int solution(int a, int b) {
+    int answer = 0;
+    int g= __gcd(a, b);
+    b/=g;
+    while (b % 2 == 0) b /= 2;
+    while (b % 5 == 0) b /= 5;
+    if(b!=1) return 2;
+    else return 1;
+    
+    return answer;
+}
