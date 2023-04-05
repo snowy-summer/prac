@@ -686,3 +686,415 @@ int solution(int a, int b) {
     
     return answer;
 }
+
+int solution(int n) {
+    int answer=0;
+    int cnt=1, m=1;
+    
+    while(1)
+    {
+        bool check=false;
+        string s=to_string(m);
+        if(m%3==0)
+        {
+            m+=1;
+            continue;
+        }
+    
+        else{
+            for(int i=0; i<s.size(); i++)
+            {
+                if(s[i]=='3')
+                {
+                    m+=1;
+                    check=true;
+                    break;
+                }
+            }
+        }
+        if(check) continue;
+        if(cnt==n) break;
+        
+        cnt++;
+        m++;
+    }
+    
+    return m;
+}
+
+//이해가 잘 안간다.
+bool cmp(int a, int b, int n) {
+    int da = abs(n - a);
+    int db = abs(n - b);
+    if (da == db) return a > b;
+    return da < db;
+}
+
+vector<int> solution(vector<int> numlist, int n) {
+    sort(numlist.begin(), numlist.end(), [&](int a, int b) {
+        return cmp(a, b, n);
+    });
+    return numlist;
+}
+
+
+int solution(std::string A, std::string B) 
+{
+    int n = A.size();
+    for (int i = 0; i < n; i++) 
+    {
+        if (A == B) 
+        {
+            return i;
+        }
+        std::rotate(A.rbegin(), A.rbegin() + 1, A.rend());// 오른쪽 방향으로 회전
+    }
+
+    return -1;
+}
+
+string solution(string polynomial) {
+    string answer = "";
+    istringstream iss(polynomial);
+    vector<string> tokens;
+    string token;
+    
+    int xnum=0;
+    int num=0;
+    while(iss>>token) //빈칸을 기준으로 분리하기
+    {
+        tokens.push_back(token);
+    }
+    for(string findx: tokens)
+    {
+        if(findx.find('x')!=string::npos) // x가 포함된 항일 경우
+        {
+            int x_index=findx.find('x'); //x의 위치 찾기
+            if(x_index==0)//x가 첫번째 위치하면 x앞에 아무것도 없기 때문에
+            {
+               xnum+=1; 
+            }
+            else
+            {
+                string num_str = findx.substr(0,x_index); //x앞 추출
+                if(num_str.empty()) //x앞이 비어있는 경우 계수가 1
+                {
+                    xnum+=1;
+                }
+                else
+                {
+                    xnum+=stoi(num_str);
+                }
+            }
+            
+        }
+        else
+        {
+            if(findx.find('+')==string::npos) //나머지 숫자와 '+'중에 '+'가 아닐 경우
+            {
+                num+=stoi(findx);
+            }
+        }
+    }
+   if(xnum!=0&&xnum!=1)
+    { 
+     answer+=to_string(xnum) + "x";
+    }
+    
+    if(xnum==1)
+    {
+        answer+="x";
+    }
+  
+    if(num!=0)
+    {
+        if(xnum!=0)
+        {
+            answer+=" + ";
+        }
+        answer+=to_string(num);
+    }
+    return answer;
+}
+
+int solution(vector<int> array) {
+    map<int, int> freqMap; // 각 원소가 나타난 빈도수를 저장할 map
+    int maxFreq = 0; // 최빈값의 빈도수를 저장할 변수
+    int mode = -1; // 최빈값을 저장할 변수
+
+    // 각 원소의 빈도수를 map에 저장
+    for (int i = 0; i < array.size(); i++) {
+        freqMap[array[i]]++;
+        maxFreq = max(maxFreq, freqMap[array[i]]);
+    }
+
+    // 최빈값이 여러 개인지 확인하고, mode 변수에 값을 저장
+    for (auto it = freqMap.begin(); it != freqMap.end(); it++) {
+        if (it->second == maxFreq) {
+            if (mode == -1) { // 최빈값이 처음 나타난 경우
+                mode = it->first;
+            } else { // 최빈값이 여러 개인 경우
+                return -1;
+            }
+        }
+    }
+
+    return mode;
+}
+
+int evaluate_expression(const string& expression) {
+    istringstream iss(expression);
+    int left_operand, right_operand;
+    char op;
+    iss >> left_operand >> op >> right_operand; // 6 + 7 같은 경우에는 6은 left +는op에 7은 right에 저장된다. 공백 문자 기준
+
+    if (op == '+') {
+        return left_operand + right_operand;
+    }
+    else if (op == '-') {
+        return left_operand - right_operand;
+    }
+    
+}
+
+vector<string> solution(vector<string> quiz) {
+    vector<string> results;
+    for (const string& expression : quiz) {
+        try {
+            int expected_result = stoi(expression.substr(expression.find('=') + 1));
+            if (evaluate_expression(expression.substr(0, expression.length() - 2)) == expected_result) {
+                results.push_back("O");
+            }
+            else {
+                results.push_back("X");
+            }
+        }
+        catch (...) {
+            results.push_back("X");
+        }
+    }
+    return results;
+}
+
+//등비 등차 수열의 마지막 다음에 오는 수
+int solution(vector<int> common) {
+    int answer = 0;
+    int ddnum=0;
+    int dbnum =0;
+    
+    if(common[1]-common[0] == common[2]-common[1])
+    {
+        ddnum=common[1]-common[0];
+        answer=(common.back()+ddnum);
+    }
+    else
+    {
+       dbnum=common[2]/common[1]; 
+        answer=(common.back()*dbnum);
+    }
+    return answer;
+}
+
+vector<int> solution(int num, int total) {
+    vector<int> answer;
+    int m;
+    if(total%num==0)
+    {
+        if(num%2!=0) //홀수일 경우
+        {for(int i=1; i<=((num-1)/2);i++)
+            {
+                answer.push_back(total/num + i);
+                answer.push_back(total/num - i);
+            }
+         answer.push_back(total/num);
+        }
+       
+       
+    }
+    else
+    {
+        m=total%num;
+        for(int i=1;i<m;i++)
+        {
+            answer.push_back(total/num+i);
+            answer.push_back(total/num-i);
+        }
+        answer.push_back(total/num);
+        answer.push_back(total/num+m);
+    }
+     sort(answer.begin(),answer.end());
+    return answer;
+}
+
+int solution(vector<vector<int>> board) {
+    int answer = 0;
+    int n = board.size();
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<board[i].size();j++)
+        {
+            if(board[i][j]==1||((board[i][j]%2 != 0) && board[i][j]!=0)) //(board[i][j]%2 != 0)  곂쳐서 위험지역으로 4 이렇게 나오는 부분때문에 홀수가 나와야한다.
+            {
+                if(i-1>=0 && j-1>=0) board[i-1][j-1]+=2;
+                if(i-1>=0)           board[i-1][j]+=2;
+                if(i-1>=0 && j+1<n)  board[i-1][j+1]+=2;
+                if(j-1>=0)           board[i][j-1]+=2;
+                if(j+1<n)            board[i][j+1]+=2;
+                if(i+1<n && j-1>=0)  board[i+1][j-1]+=2;
+                if(i+1<n)            board[i+1][j]+=2;
+                if(i+1<n && j+1<n)   board[i+1][j+1]+=2; 
+            }
+        }
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(board[i][j]==0)
+                answer++;
+        }
+    }
+        
+    return answer;
+}
+
+//곂치는 선분의 길이 구하기
+int solution(vector<vector<int>> lines) {
+    int answer = 0;
+    vector<int> points;
+    for (const auto& line : lines) {
+        points.push_back(line[0]);
+        points.push_back(line[1]);
+    }
+    sort(points.begin(), points.end());
+
+    for (int i = 0; i < points.size() - 1; i++) {
+        int start = points[i], end = points[i+1];
+        int count = 0;
+        for (const auto& line : lines) {
+            if (start >= line[0] && end <= line[1]) {
+                count++;
+            }
+        }
+        if (count >= 2) {
+            answer += end - start;
+        }
+    }
+
+    return answer;
+}
+
+int solution(vector<vector<int>> dots) {
+    int answer = 0;
+
+    // 첫 번째 점과 두 번째 점을 이은 직선과 세 번째 점과 네 번째 점을 이은 직선이 평행인지 판단
+    if ((dots[0][0]-dots[1][0])*(dots[2][1]-dots[3][1]) == (dots[0][1]-dots[1][1])*(dots[2][0]-dots[3][0]))
+        answer = 1;
+
+    // 첫 번째 점과 세 번째 점을 이은 직선과 두 번째 점과 네 번째 점을 이은 직선이 평행인지 판단
+    if ((dots[0][0]-dots[2][0])*(dots[1][1]-dots[3][1]) == (dots[0][1]-dots[2][1])*(dots[1][0]-dots[3][0]))
+        answer = 1;
+
+    // 첫 번째 점과 네 번째 점을 이은 직선과 두 번째 점과 세 번째 점을 이은 직선이 평행인지 판단
+    if ((dots[0][0]-dots[3][0])*(dots[1][1]-dots[2][1]) == (dots[0][1]-dots[3][1])*(dots[1][0]-dots[2][0]))
+        answer = 1;
+
+    return answer;
+}
+
+bool cmp(const pair<int, int>& a, const pair<int, int>& b) {
+    if (a.first == b.first) {
+        return a.second < b.second;
+    }
+    return a.first > b.first;
+}
+
+vector<int> solution(vector<vector<int>> scores) {
+    vector<pair<int, int>> avg_scores;
+    for (int i = 0; i < scores.size(); i++) {
+        int avg = (scores[i].front() + scores[i].back());
+        avg_scores.push_back({ avg, i + 1 });
+    }
+    sort(avg_scores.begin(), avg_scores.end(), cmp);
+    vector<int> answer(scores.size());
+    int rank = 1;
+    answer[avg_scores[0].second - 1] = rank;
+    for (int i = 1; i < avg_scores.size(); i++) {
+        if (avg_scores[i].first == avg_scores[i - 1].first) {
+            answer[avg_scores[i].second - 1] = rank;
+        }
+        else {
+            rank = i + 1;
+            answer[avg_scores[i].second - 1] = rank;
+        }
+    }
+    return answer;
+}
+
+
+int solution(vector<string> babbling) {
+    int answer=0;
+    for (int i = 0; i < babbling.size(); ++i) 
+ {
+    // 1. 문자열에 들어갈 수 없는 것들이 있다면 건너뛰기
+    if (babbling[i].find("ayaaya") != string::npos)
+    {
+        continue;
+    }
+
+    else if (babbling[i].find("yeye") != string::npos)
+    {
+        continue;
+    }
+
+    else if (babbling[i].find("woowoo") != string::npos)
+    {
+        continue;
+    }
+
+    else if (babbling[i].find("mama") != string::npos)
+    {
+        continue;
+    }
+
+    else 
+    {
+        // 2. babbling[i]에서 aya, ye, woo, ma를 찾았을 경우
+        //    그 크기만큼 count에 더해줌
+        int count = 0;
+        if (babbling[i].find("aya") != -1)
+        {
+            count += 3;
+        }
+
+        if (babbling[i].find("ye") != -1)
+        {
+            count += 2;
+        }
+
+        if (babbling[i].find("woo") != -1)
+        {
+            count += 3;
+        }
+
+        if (babbling[i].find("ma") != -1)
+        {
+            count += 2;
+        }
+
+        // 3. count와 babbling[i]의 길이를 비교해서 같다면
+        // answer에 + 1
+        if (count == babbling[i].length())
+        {
+            ++answer;
+        }
+        // --> 
+        // 같지 않다면 babbling[i]에 aya, ye, woo, ma를 제외한
+        // 머쓱이가 발음할 수 없는 문자가 들어있었다는 뜻
+
+    }
+ }
+return answer;
+}
