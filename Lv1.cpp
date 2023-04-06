@@ -267,3 +267,330 @@ vector<int> solution(vector<int> arr, int divisor) {
     sort(answer.begin(),answer.end());
     return answer;
 }
+
+//핸드폰 번호 가리기
+string solution(string phone_number) {
+    string answer = "";
+    for(int i=0;i<phone_number.size();i++)
+    {
+        if(i<phone_number.size()-4)
+        {
+            answer+='*';
+        }
+        else
+        {
+            answer+=phone_number[i];
+        }
+        
+    }
+    return answer;
+}
+
+//음양 더하기
+int solution(vector<int> absolutes, vector<bool> signs) {
+    int answer = 0;
+    
+    for(int i=0;i<signs.size();i++)
+    {
+        if(signs[i])
+        {
+            answer+=absolutes[i];
+        }
+        else
+        {
+            answer+= -absolutes[i];
+        }
+    }
+    
+    return answer;
+}
+
+//제일 작은 수 제거하기
+vector<int> solution(vector<int> arr) {
+    vector<int> answer;
+    int minIndex = min_element(arr.begin(), arr.end()) - arr.begin();
+    arr.erase(arr.begin() + minIndex);
+
+    answer=arr;
+    if(answer.empty())
+    {
+        answer.push_back(-1);
+    }
+    
+    
+    return answer;
+}  
+
+//없는 숫자 더하기
+int solution(vector<int> numbers) {
+    int answer = 45;
+    
+    for(int i= 0;i<numbers.size();i++)
+    {
+        answer -= numbers[i];
+    }
+    return answer;
+}
+
+//가운데 글자 가져오기
+string solution(string s) {
+    string answer = "";
+    int num= s.size()/2;
+    
+    if(s.size()%2==0)
+    {
+        answer+=s[num-1];
+        answer+=s[num];
+    }
+    else
+    {
+        answer+=s[num];
+    }
+    return answer;
+}
+
+//수박수박수박수박수박?
+string solution(int n) {
+    string answer = "";
+    
+    for(int i=1;i<=n;i++)
+    {
+        if(i%2!=0)
+        {
+            answer+="수";
+        }
+        else
+        {
+            answer+="박";
+        }
+    }
+    return answer;
+}
+
+//내적
+int solution(vector<int> a, vector<int> b) {
+    int answer = 0;
+    
+    for(int i=0;i<a.size();i++)
+    {
+        answer+=a[i]*b[i];
+    }
+    return answer;
+}
+
+//문자열 내림차순으로 배치하기
+string solution(string s) {
+    string answer = "";
+    
+    sort(s.begin(),s.end(),greater<int>());
+    
+    return s;
+}
+
+//약수의 개수와 덧셈
+int solution(int left, int right) {
+    int answer = 0;
+    int count=1;
+    for(int i=left;i<=right;i++)
+    {
+        for(int j=2;j<=i;j++)
+        {
+            if(i%j==0)
+            {
+                count++;
+            }
+        }
+        if(count%2==0)
+        {
+            answer+=i;
+        }
+        else
+        {
+            answer-=i;
+        }
+        count=-1;
+    }
+    return answer;
+}
+#include <cmath>
+
+int solution(int left, int right) {
+    int answer = 0;
+    for (int i = left; i <= right; i++) {
+        int cnt = 0;
+        for (int j = 1; j <= sqrt(i); j++) {
+            if (i % j == 0) {
+                cnt++;
+                if (j * j != i) cnt++;
+            }
+        }
+        answer += (cnt % 2 == 0 ? i : -i);
+    }
+    return answer;
+}
+
+//문자열 다루기 기본
+
+bool solution(string s) {
+    bool answer = true;
+    if(s.size()!=4&&s.size()!=6)
+    {
+        return false;
+    }
+    for(char c:s)
+    {
+        if(!isdigit(c))
+        {
+            return false;
+        }
+    }
+    return answer;
+}
+
+//부족한 금액 계산하기
+long long solution(int price, int money, int count)
+{
+    long long answer = 0;
+    long long sum =0;
+   
+    for(int i=1;i<=count;i++)
+    {
+        sum+=(price*i);
+    }
+    answer=abs(money-sum);
+    if((money-sum)>=0)
+    {
+        answer=0;
+    }
+    return answer;
+}
+
+//행렬의 덧셈
+
+
+vector<vector<int>> solution(vector<vector<int>> arr1, vector<vector<int>> arr2) {
+    vector<vector<int>> answer;
+    int n= arr1.size();
+    int m=arr1[0].size();
+    answer.resize(n,vector<int>(m));
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            answer[i][j]=arr1[i][j]+arr2[i][j];
+        }
+    }
+    return answer;
+}
+
+//직사각형 별찍기
+int main(void) {
+    int a;
+    int b;
+    cin >> a >> b;
+    
+    for(int j=0;j<b;j++)
+    {
+         for(int i=0;i<a;i++)
+        {
+          cout<< '*';
+        }
+        cout<<endl;
+    }
+   
+    return 0;
+}
+
+//최대공약수 최대 공배수
+vector<int> solution(int n, int m) {
+    vector<int> answer;
+    int min=0;
+    int max=0;
+    min=__gcd(n,m);
+    max=n*m/min;
+    answer.push_back(min);
+    answer.push_back(max);
+    return answer;
+}
+
+//같은 숫자는 싫어
+vector<int> solution(vector<int> arr) 
+{
+    vector<int> answer;
+    answer.push_back(arr[0]);
+    for(int i=0;i<arr.size();i++)
+    {
+        if(arr[i]!=answer[answer.size()-1])
+        {
+             answer.push_back(arr[i]);
+        }
+        
+    }
+
+
+    return answer;
+}
+
+//3진법 뒤집기
+
+int solution(int n) {
+    int answer = 0;
+    vector<int> ternary;  // 3진법 자릿수를 저장할 벡터
+    while (n > 0) 
+    {
+        ternary.push_back(n % 3);
+        n /= 3;
+    }
+    int size = ternary.size();
+    for (int i = 0; i < size; i++) 
+    {
+        answer += ternary[i] * pow(3, size - i - 1);  // 3진법을       10진법으로 변환
+    }
+    return answer;
+}
+
+//이상한 문자만들기
+string solution(string s) {
+    string answer = "";
+    string word = "";
+   
+    for (int i = 0; i < s.size(); i++) 
+    {
+        if (s[i] == ' ') 
+        { // 공백이 나오면 이전 단어 처리
+            for (int j = 0; j < word.size(); j++) 
+            {
+                if (j % 2 == 0) 
+                { // 짝수 인덱스는 대문자로 변경
+                    answer += toupper(word[j]);
+                } 
+                else 
+                { // 홀수 인덱스는 소문자로 변경
+                    answer += tolower(word[j]);
+                }
+            }
+            answer += ' '; // 공백 추가
+            word = ""; // 다음 단어를 위해 초기화
+           
+        } 
+        else 
+        {
+            word += s[i]; // 단어 추가
+          
+        }
+    }
+    // 마지막 단어 처리
+    for (int j = 0; j < word.size(); j++) 
+    {
+        if (j % 2 == 0) 
+        { // 짝수 인덱스는 대문자로 변경
+            answer += toupper(word[j]);
+        } 
+        else 
+        { // 홀수 인덱스는 소문자로 변경
+            answer += tolower(word[j]);
+        }
+    }
+    return answer;
+}
