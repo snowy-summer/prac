@@ -161,3 +161,109 @@ long long solution(long long n) {
     }
     return answer;
 }
+
+//문자열을 정수로 바꾸기
+int solution(string s) {
+    int answer = 0;
+    answer=stoi(s);
+    return answer;
+}
+
+//하샤드 수
+bool solution(int x) {
+    bool answer = true;
+    int sum=0;
+    int xcopy=x;
+    while(x!=0)
+    { 
+        sum+=x%10;
+        x/=10;
+    }
+    
+    if(xcopy%sum!=0)
+    {
+        answer=false;
+    }
+    return answer;
+}
+
+//두 정수 사이의 합
+long long solution(int a, int b) {
+    long long answer = 0;
+    if(a<=b)
+    {
+        for(a;a<=b;a++)
+        {
+        answer+=a;
+        }
+    }
+    else
+    {
+       for(b;b<=a;b++)
+        {
+        answer+=b;
+        } 
+    }
+    
+    return answer;
+}
+
+int solution(int num2) {
+   long long num =num2;
+    int count =0;
+    while(num!=1)
+    {
+        if(num%2==0)
+         {
+            num/=2;
+         }
+        else
+        {
+            num=num*3+1;
+        }
+         
+        count++;
+        if(count==500)
+         {
+            count= -1;
+            break;
+         }
+    }
+    return count;
+}
+
+//서울에서 김서방 찾기
+string solution(vector<string> seoul) {
+   
+    int x =0;
+    for(int i =0;i<seoul.size();i++)
+    {
+        if(seoul[i]=="Kim")
+        {
+            x=i;
+            break;
+        }
+    }
+    
+    
+    return "김서방은 "+ to_string(x) + "에 있다";
+}
+
+//나누어 떨어지는 숫자 배열
+vector<int> solution(vector<int> arr, int divisor) {
+    vector<int> answer;
+    
+    for(int i=0;i<arr.size();i++)
+    {
+        if(arr[i]%divisor==0)
+        {
+            answer.push_back(arr[i]);
+        }
+    }
+    if(answer.empty())
+    {
+        answer.push_back(-1);
+    }
+    sort(answer.begin(),answer.end());
+    return answer;
+}
