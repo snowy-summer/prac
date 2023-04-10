@@ -594,3 +594,222 @@ string solution(string s) {
     }
     return answer;
 }
+
+//시저 암호
+string solution(string s, int n) {
+    string answer = "";
+    for(int i=0;i<s.size();i++)
+    {
+        if(s[i]!=' ')
+        {
+          if(s[i]>=65&&s[i]<=90) //대문자
+          {
+              if(s[i]+n>90)
+              {
+                  answer+=(s[i]+n-26);
+              }
+              else
+              {
+                  answer+=(s[i]+n);
+              }
+          }
+          else
+          {
+              if(s[i]+n>122)
+              {
+                  answer+=(s[i]+n-26);
+              }
+              else
+              {
+                  answer+=(s[i]+n);
+              }
+          }  
+       
+        }
+        else
+        {
+            answer+=s[i];
+        }
+    }
+    return answer;
+}
+//예산
+int solution(vector<int> d, int budget) {
+    int answer = 0;
+    
+    sort(d.begin(),d.end());
+    for(int i=0;i<d.size();i++)
+    {
+        if(budget>=d[i])
+        {
+            budget-=d[i];
+            answer++;
+        }
+    }
+    
+    return answer;
+}
+
+//삼총사
+int solution(int number[], size_t number_len) {
+    int answer = 0;
+    
+    for(int i= 0;i<number_len;i++)
+    {
+        for(int k=i+1;k<number_len;k++)
+        {
+            for(int j=k+1;j<number_len;j++)
+            {
+                
+               if(number[i]+number[k]+number[j]==0)
+               {
+                   answer++;
+               }
+            }
+        }
+        
+    }
+    return answer;
+}
+
+//최소직사각형
+int solution(vector<vector<int>> sizes) {
+    int answer = 0;
+    int height =0;
+    int width =0;
+    for(int i=0;i<sizes.size();i++)
+    {
+        if(sizes[i][0]>sizes[i][1])
+        {
+            height=max(height,sizes[i][0]);
+            width=max(width,sizes[i][1]);
+        }
+        else
+        {
+            height=max(height,sizes[i][1]);
+            width=max(width,sizes[i][0]);
+        }
+
+    }
+    
+    answer=height*width;
+    return answer;
+}
+
+//비밀지도
+vector<string> solution(int n, vector<int> arr1, vector<int> arr2) {
+    vector<string> answer;
+    string bi="";
+    string bi2="";
+    string shop="";
+    
+    for(int i=0;i<arr1.size();i++)
+    {
+        while(arr1[i]>0)
+        {
+             
+          bi=to_string(arr1[i]%2)+bi;
+          arr1[i]/=2;
+        }
+        while(bi.size()<n)
+        {
+            bi="0"+bi;
+        }//2진법으로 만들기
+        
+         while(arr2[i]>0)
+        {
+             
+            bi2=to_string(arr2[i]%2)+bi2;
+            arr2[i]/=2;
+        }
+        while(bi2.size()<n)
+        {
+            bi2="0"+bi2;
+        } //2진법만들기
+        
+            for(int k=0;k<n;k++)
+            {
+               if(bi[k]=='1' || bi2[k]=='1')
+                {
+                    shop+="#";
+                }
+                else
+                {
+                    shop+=" ";
+                }
+            }
+            
+           answer.push_back(shop);
+           bi="";
+           bi2="";
+           shop=""; 
+    }
+       
+    
+   
+    return answer;
+}
+
+
+//숫자 문자열과 영단어
+
+int solution(string s) {
+    vector<string> num_strs = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    string num_str = "";
+    string answer_str = "";
+    
+    for(char c : s) {
+        if(isdigit(c)) {
+            answer_str += c;
+        } else {
+            num_str += c;
+            auto it = find(num_strs.begin(), num_strs.end(), num_str);
+            if(it != num_strs.end()) {
+                answer_str += to_string(it - num_strs.begin());
+                num_str = "";
+            }
+        }
+    }
+    
+    return stoi(answer_str);
+}
+
+//k번째수
+vector<int> solution(vector<int> array, vector<vector<int>> commands) {
+    vector<int> answer;
+    vector<int> num;
+    int first=0;
+    int end =0;
+    int call=0;
+    for(int i=0;i<commands.size();i++)
+    {
+      first = commands[i][0];
+      end = commands[i][1];
+      call = commands[i][2];
+        
+        
+        for(int k=first-1;k<=end-1;k++)
+        {
+            num.push_back(array[k]);
+        }
+        sort(num.begin(),num.end());
+        answer.push_back(num[call-1]);
+        num.clear();
+        
+    }
+    
+    return answer;
+}
+
+//크기가 작은 부분문자열
+
+int solution(string t, string p) {
+    int answer = 0;
+    int plen = p.size();
+    int tlen = t.size() - plen + 1;
+    for (int i = 0; i < tlen; i++) {
+        string temp = t.substr(i, plen);
+        if (temp <= p) answer++;
+    }
+    return answer;
+}
