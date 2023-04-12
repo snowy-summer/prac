@@ -813,3 +813,93 @@ int solution(string t, string p) {
     }
     return answer;
 }
+
+//두개 뽑아서 더하기
+vector<int> solution(vector<int> numbers) {
+    vector<int> answer;
+    
+    for(int i=0;i<numbers.size();i++)
+    {
+        for(int k=0;k<numbers.size();k++)
+        {
+            if(k!=i)
+            {
+                answer.push_back(numbers[i]+numbers[k]);
+            }
+        }
+    }
+    sort(answer.begin(),answer.end());
+    auto new_end=unique(answer.begin(),answer.end());
+    answer.erase(new_end,answer.end());
+    
+    
+    
+    return answer;
+}
+
+//콜라문제
+int solution(int a, int b, int n) {
+    int answer = 0;
+    int emptyBottles = 0; // 보유한 빈 병의 개수
+    while (n >= a) {
+        int currentColas = (n / a) * b; // 현재 빈 병으로 받을 수 있는 콜라의 개수
+        answer += currentColas; // 총 받은 콜라의 개수에 더하기
+        emptyBottles += currentColas; // 새로운 콜라를 마신 뒤 남은 빈 병의 개수
+        n = n % a + emptyBottles; // 나머지 빈 병 개수와 새로운 빈 병 개수를 합쳐서 다음 반복문에 활용
+        emptyBottles = 0; // 다음 반복문에서 새로운 빈 병 개수를 계산하기 위해 초기화
+    }
+    return answer;
+}
+
+//푸드 파이트 대회
+
+string solution(vector<int> food) {
+    string answer = "";
+    string s="";
+    
+    for(int i=1;i<food.size();i++)
+    {int n= food[i]/2;
+        while(n>0)
+        {
+          answer+=to_string(i);
+          n--;
+        }
+       
+    }
+    s= answer+'0';
+    reverse(answer.begin(),answer.end());
+    s+=answer;
+    return s;
+}
+
+//2016년
+string solution(int a, int b) {
+    string answer = "";
+    int daysOfMonth[13] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    string daysOfWeek[7] = {"FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"};
+    int days = 0;
+    for (int i = 1; i < a; i++) {
+        days += daysOfMonth[i];
+    }
+    days += b - 1;
+    answer = daysOfWeek[days % 7];
+    return answer;
+}
+
+
+//폰켓몬
+
+int solution(vector<int> nums)
+{
+    int answer = 0;
+    int pick=nums.size()/2;
+    
+    set<int> s(nums.begin(), nums.end());
+    if (s.size() <= pick) {
+        answer = s.size();
+    } else {
+        answer = pick;
+    }
+    
+    return answer;
+}
