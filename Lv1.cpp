@@ -903,3 +903,100 @@ int solution(vector<int> nums)
     
     return answer;
 }
+// 모의고사
+vector<int> solution(vector<int> answers) {
+    vector<int> answer;
+    int pattern1[5] = {1, 2, 3, 4, 5};
+    int pattern2[8] = {2, 1, 2, 3, 2, 4, 2, 5};
+    int pattern3[10] = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+    int score1 = 0, score2 = 0, score3 = 0;
+    
+    for(int i = 0; i < answers.size(); i++) {
+        
+        if(answers[i] == pattern1[i % 5]) score1++;
+        if(answers[i] == pattern2[i % 8]) score2++;
+        if(answers[i] == pattern3[i % 10]) score3++;
+    }
+    
+   
+    int max_score = max(score1, max(score2, score3));
+    
+    
+    if(max_score == score1) answer.push_back(1);
+    if(max_score == score2) answer.push_back(2);
+    if(max_score == score3) answer.push_back(3);
+    
+    return answer;
+}
+
+//소수찾기
+int solution(int n) {
+    int answer = 0;
+    
+    for(int i=2;i<=n;i++)
+    { bool is_prime= true;
+        for(int k=2;k*k<=i;k++) //절반까지만 탐색해도 된다.
+        {
+            if(i%k==0)
+            {
+                is_prime=false;
+                break;
+            }
+
+        }
+        if(is_prime)
+        {
+            answer++;
+        }
+    }
+    return answer;
+}
+//과일장수
+bool cmp(int a, int b) {
+    return a > b;
+}
+
+int solution(int k, int m, vector<int> score) {
+    int answer = 0;
+    int n = score.size();
+
+    sort(score.begin(), score.end(), cmp); 
+
+    int box_cnt = n / m; 
+    for (int i = 0; i < box_cnt; i++) {
+        int min_score = score[i * m + m - 1]; 
+        answer += min_score * m; 
+    }
+    return answer;
+}
+
+//실패율 *&**** 내가 못품
+
+vector<int> solution(int N, vector<int> stages) {
+    vector<int> answer;
+    vector<pair<double, int>> percent; // pair의 첫 번째 원소를 double로 수정
+    
+    int bot = stages.size(); // 전체 도전자 수
+    for(int i=1;i<=N;i++) {
+        int count = count_if(stages.begin(), stages.end(), [i](int stage) { return stage == i; });
+        // i 스테이지에 머물러 있는 사용자 수 세기
+        if(count == 0) { // 실패율 계산 불가능한 경우
+            percent.push_back({0, i});
+        }
+        else {
+            percent.push_back({static_cast<double>(count) / bot, i}); // 실패율 계산
+        }
+        bot -= count; // i 스테이지에 머물러 있는 사용자는 다음 스테이지에서 제외
+    }
+    
+    sort(percent.begin(), percent.end(), [](auto p1, auto p2) { // 실패율 내림차순으로 정렬
+        if(p1.first == p2.first) return p1.second < p2.second;
+        return p1.first > p2.first;
+    });
+    
+    for (auto p : percent) {
+        answer.push_back(p.second);
+    }
+    
+    return answer;
+}
