@@ -1120,3 +1120,157 @@ string solution(string X, string Y) {
 
     return answer;
 }
+
+//문자열 내마음대로 정렬하기
+int N;
+bool cmp(string a, string b){
+    if(a[N] == b[N])
+    {
+        return a < b;
+    }
+    else
+    {
+        return a[N] < b[N];
+    }
+}
+
+vector<string> solution(vector<string> strings, int n) {
+    N=n;
+    sort(strings.begin(), strings.end(), cmp);
+    return strings;
+}
+
+//완주하지 못한 선수
+string solution(vector<string> participant, vector<string> completion) {
+
+    
+    sort(participant.begin(),participant.end());
+    sort(completion.begin(),completion.end());
+    
+    for(int i=0;i<completion.size();i++)
+    {
+        if(participant[i]!=completion[i])
+        {
+           return participant[i];
+
+        }
+    }
+    
+    return participant.back();
+}
+
+//숫자패드 누르기
+
+string solution(vector<int> numbers,string hand) {
+    string answer="";
+    int left_hand = 10;
+    int right_hand = 11;
+
+    for(int i=0;i<numbers.size();i++)
+    {
+        int number = numbers[i];
+
+        if(number == 1 || number == 4 || number == 7)
+        {
+            answer+='L';
+            left_hand = number;
+        }
+        else if(number == 3 || number == 6 || number == 9)
+        {
+            answer+='R';
+            right_hand =number;
+        }
+        else
+        {
+            int left_distance = abs(left_hand - number); 
+            int right_distance = abs(right_hand - number);
+            if (left_distance == right_distance) 
+            {
+                
+                if (hand == "left") {
+                    answer += 'L';
+                    left_hand = number;
+                } else {
+                    answer += 'R';
+                    right_hand = number;
+                }
+            }
+            else if (left_distance < right_distance) 
+            {
+                
+                answer += 'L';
+                left_hand = number;
+            } else 
+            {
+                
+                answer += 'R';
+                right_hand = number;
+            }
+        }
+}
+// 옹알이(2)
+
+int solution(vector<string> babbling)
+{
+    int answer=0;
+
+    for(string s : babbling)
+    {
+        int yet=0; 
+        bool o=true;
+        for(int i=0; i<s.length(); i++)
+        {
+            if(s.substr(i,3)=="aya" && yet!=1) 
+            { yet=1; i+=2; }
+            else if(s.substr(i,2)=="ma" && yet!=2) 
+            { yet=2; i+=1; }
+            else if(s.substr(i,3)=="woo" && yet!=3) 
+            { yet=3; i+=2; }
+            else if(s.substr(i,2)=="ye" && yet!=4) 
+            { yet=4; i+=1; }
+            else 
+            { o=false; break; }
+        }
+        if(o==true) answer++;
+    }
+
+    return answer;
+}
+
+//문자열 나누기
+int solution(string s) {
+    int answer = 0;
+    int count =0;
+    int other=0;
+    int i=0;
+    while(i<s.size())
+    {
+        if(s[i]==s[0])
+        {
+            count++;
+        }
+        else
+        {
+            other++;
+        }
+        
+        if(count==other)
+        {
+            s.erase(0,i+1); //0부터 i+1개를 제거한다.
+            count=0;
+            other=0;
+            i=0;
+            answer++;
+        }
+        else
+        {
+            i++;
+        }
+        
+    }
+    if(!s.empty()) // 읽을 글자가 없어질 경우 한 뭉텅이기 때문에 answer++해준다.
+    {
+        answer++;
+    }
+    return answer;
+}
