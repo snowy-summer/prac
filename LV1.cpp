@@ -1274,3 +1274,75 @@ int solution(string s) {
     }
     return answer;
 }
+
+//둘만의 암호
+string solution(string s, string skip, int index) {
+    string answer = "";
+    char current;
+    for(int i=0;i<s.size();i++)
+    {
+        current=s[i];
+        for(int n=1;n<=index;n++)
+        {   current+=1;
+            if(current>'z') //z 넘어갈 경우 다시 a로
+            {
+                current = 'a' + (current-'z'-1);
+            }
+            
+         while(skip.find(current)!=string::npos) // 다음 알파벳으로 넘어갔을때 skip에 있을경우 추가적으로 한번더 넘어간다. 
+          {
+             current+=1;
+             if(current>'z') //z 넘어갈 경우 다시 a로
+            {
+                current = 'a' + (current-'z'-1);
+            }
+
+          }
+            
+        }
+        answer+=current;
+        
+    }
+    return answer;
+}
+
+//바탕화면 정리
+
+vector<int> solution(vector<string> wallpaper) {
+    vector<int> answer;
+    
+    int first = -1; // 처음으로 #이 존재하는 index
+    int front = wallpaper[0].size(); // 원소 중 가장 앞에 있는 #의 위치
+    int last = -1; // 마지막으로 #이 존재하는 index
+    int back = -1; // 가장 뒤에 있는 #의 위치
+    
+    for (int i = 0; i < wallpaper.size(); i++) 
+    {
+        for (int j = 0; j < wallpaper[i].size(); j++) 
+        {
+            if (wallpaper[i][j] == '#') 
+            {
+                if (first == -1) 
+                {
+                    first = i;
+                }
+                if (front > j) 
+                {
+                    front = j;
+                }
+                last = i;
+                if (back < j) 
+                {
+                    back = j;
+                }
+            }
+        }
+    }
+
+    answer.push_back(first);
+    answer.push_back(front);
+    answer.push_back(last + 1);
+    answer.push_back(back + 1);
+    
+    return answer;
+}
