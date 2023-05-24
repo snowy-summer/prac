@@ -18,15 +18,19 @@ enum MonsterType
 	MT_Hornrabbit = 3,
 };
 
+struct Statinfo
+{
+	int hp;
+	int attack;
+	int defence;
+};
+
 PlayerType playerType;
-int hp;
-int attack;
-int defence;
+Statinfo playerStat;
 
 MonsterType monsterType;
-int monsterHp;
-int monsterAttack;
-int monsterDefence;
+Statinfo monsterStat;
+
 
 
 void EnterLobby();
@@ -34,6 +38,8 @@ void SelectPlayer();
 void EnterField();
 void RespawnRandomMonster();
 void ChoiceHappen();
+void EnterBattle();
+void WaitForNextKey();
 
 int main()
 {
@@ -66,6 +72,7 @@ void EnterLobby()
 		{
 			cout << " 여행을 떠납니다." << endl;
 			EnterField();
+			return;
 		}
 		else if (input == 2)
 		{
@@ -98,36 +105,36 @@ void SelectPlayer()
 		if (choice == PT_Knight)
 		{
 			cout << "기사를 선택했습니다." << endl;
-			hp = 150;
-			attack = 10;
-			defence = 15;
+			playerStat.hp = 150;
+			playerStat.attack = 10;
+			playerStat.defence = 15;
 			playerType = PT_Knight;
 			break;
 		}
 		else if (choice == PT_Archer)
 		{
 			cout << "궁사를 선택했습니다." << endl;
-			hp = 100;
-			attack = 15;
-			defence = 8;
+			playerStat.hp = 100;
+			playerStat.attack = 15;
+			playerStat.defence = 8;
 			playerType = PT_Archer;
 			break;
 		}
 		else if (choice == PT_Duruid)
 		{
 			cout << "드루이드를 선택했습니다." << endl;
-			hp = 200;
-			attack = 8;
-			defence = 15;
+			playerStat.hp = 200;
+			playerStat.attack = 8;
+			playerStat.defence = 15;
 			playerType = PT_Duruid;
 			break;
 		}
 		else if (choice == PT_Mage)
 		{
 			cout << "마법사를 선택했습니다." << endl;
-			hp = 150;
-			attack = 20;
-			defence =3;
+			playerStat.hp = 150;
+			playerStat.attack = 20;
+			playerStat.defence =3;
 			playerType = PT_Mage;
 			break;
 		}
@@ -141,19 +148,24 @@ void SelectPlayer()
 
 void EnterField()
 {
-	cout << "---------------------" << endl;
-	cout << "필드에 입장했습니다." << endl;
-	cout << "---------------------" << endl;
+	while (true)
+	{
+		cout << "---------------------" << endl;
+		cout << "필드에 입장했습니다." << endl;
+		cout << "---------------------" << endl;
 
-	cout << "[Player] HP: " << hp << endl;
-	cout << "        ATK: " << attack << endl;
-	cout << "        DEF: " << defence << endl;
-	cout << endl;
-	
-	
-	RespawnRandomMonster();
-	ChoiceHappen();
+		cout << "[Player] HP: " << playerStat.hp << endl;
+		cout << "        ATK: " << playerStat.attack << endl;
+		cout << "        DEF: " << playerStat.defence << endl;
+		cout << endl;
 
+
+		RespawnRandomMonster();
+		ChoiceHappen();
+		WaitForNextKey();
+
+	}
+	
 	
 }
 
@@ -167,33 +179,33 @@ void RespawnRandomMonster()
 		case MT_Slime:
 
 			monsterType = MT_Slime;
-			monsterHp = 30;
-			monsterAttack = 5;
-			monsterDefence = 7;
+			monsterStat.hp = 30;
+			monsterStat.attack = 5;
+			monsterStat.defence = 7;
 
 			cout << "슬라임 생성" << endl;
-			cout << "HP: " << monsterHp <<" ATK: "<< monsterAttack << " DEF: " << monsterDefence << endl;
+			cout << "HP: " << monsterStat.hp <<" ATK: "<< monsterStat.attack << " DEF: " << monsterStat.defence << endl;
 			break;
 
 		case MT_Skeleton:
 
 			monsterType = MT_Skeleton;
-			monsterHp = 80;
-			monsterAttack = 10;
-			monsterDefence = 15;
+			monsterStat.hp = 80;
+			monsterStat.attack = 10;
+			monsterStat.defence = 15;
 
 			cout << "스켈레톤 생성" << endl;
-			cout << "HP: " << monsterHp << " ATK: " << monsterAttack << " DEF: " << monsterDefence << endl;
+			cout << "HP: " << monsterStat.hp << " ATK: " << monsterStat.attack << " DEF: " << monsterStat.defence << endl;
 			break;
 
 		case MT_Hornrabbit:
 
 			monsterType = MT_Hornrabbit;
-			monsterHp = 50;
-			monsterAttack = 20;
-			monsterDefence = 5;
+			monsterStat.hp = 50;
+			monsterStat.attack = 20;
+			monsterStat.defence = 5;
 			cout << "뿔토끼 생성" << endl;
-			cout << "HP: " << monsterHp << " ATK: " << monsterAttack << " DEF: " << monsterDefence << endl;
+			cout << "HP: " << monsterStat.hp << " ATK: " << monsterStat.attack << " DEF: " << monsterStat.defence << endl;
 			break;
 
 	}
@@ -201,31 +213,91 @@ void RespawnRandomMonster()
 
 void ChoiceHappen()
 {
-	cout << endl;
-	cout << "--------------------------------" << endl;
-	cout << "  행동을 고르세요 " << endl;
-	cout << "  (1) 전투 (2) 도망 " << endl;
-	cout << "> ";
-
-	int input = 0;
-	cin >> input;
-	if (input == 1)
+	while (true)
 	{
+		cout << endl;
+		cout << "--------------------------------" << endl;
+		cout << "  행동을 고르세요 " << endl;
+		cout << "  (1) 전투 (2) 도망 " << endl;
+		cout << "> ";
 
-	}
-	else
-	{
-		int randomEscape = 1 + (rand() % 2);
-		switch (randomEscape)
+		int input = 0;
+		cin >> input;
+		if (input == 1)
 		{
-		case 1:
-			cout << "성공적으로 도망칩니다." << endl;
-			break;
-
-		case 2:
-			cout << " 도망에 실패합니다." << endl;
-			break;
+			EnterBattle();
+			if (monsterStat.hp == 0)
+			{
+				cout << "몬스터를 처치했습니다." << endl;
+				
+				return;
+			}
+			if (playerStat.hp == 0)
+			{
+				cout << "쓰러졌습니다" << endl;
+				cout << " Game Over " << endl;
+				
+				return;
+			}
 		}
-	
+		else
+		{
+			int randomEscape = 1 + (rand() % 2);
+			switch (randomEscape)
+			{
+			case 1:
+				cout << "성공적으로 도망칩니다." << endl;
+				break;
+
+			case 2:
+				cout << " 도망에 실패합니다." << endl;
+				break;
+			}
+			return;
+		}
 	}
+	
+}
+
+void EnterBattle()
+{
+	
+		int playerdamage = playerStat.attack - monsterStat.defence;
+		int monsterdamage = monsterStat.attack - playerStat.defence;
+		if (playerdamage < 0)
+		{
+			playerdamage = 0;
+		}
+		monsterStat.hp -= playerdamage;
+		if (monsterStat.hp < 0)
+		{
+			monsterStat.hp = 0;
+		}
+
+		cout << "몬스터의 남은 체력: " << monsterStat.hp << endl;
+
+		//반격
+		if (monsterdamage < 0)
+		{
+			monsterdamage = 0;
+		}
+		playerStat.hp -= monsterdamage;
+		if (playerStat.hp < 0)
+		{
+			playerStat.hp = 0;
+		}
+		cout << "플레이어의 남은 체력: " << playerStat.hp << endl;
+
+	
+}
+
+void WaitForNextKey()
+{
+	cout << "계속하려면 1을 눌러주세요" << endl;
+	cout << ">";
+
+	int input;
+	cin >> input;
+
+	system("cls");
 }
