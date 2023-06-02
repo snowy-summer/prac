@@ -18,3 +18,21 @@ void SetCursorOnOff(bool visible)
 	::SetConsoleCursorInfo(output, &cursorinfo);
 
 }
+
+
+MoveDir GMoveDir;
+
+void HandleKeyInput()
+{
+	if (::GetAsyncKeyState(VK_LEFT) & 0x8000)
+		GMoveDir = MD_LEFT;
+	else if (::GetAsyncKeyState(VK_RIGHT) & 0x8000)
+		GMoveDir = MD_RIGHT;
+	else if (::GetAsyncKeyState(VK_UP) & 0x8000)
+		GMoveDir = MD_UP;
+	else if (::GetAsyncKeyState(VK_DOWN) & 0x8000)
+		GMoveDir = MD_DOWN;
+	else 
+		GMoveDir = MD_NONE;
+}
+
