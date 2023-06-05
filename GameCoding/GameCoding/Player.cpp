@@ -18,11 +18,15 @@ void MovePlayer(int x, int y)
 	int index = y * Map_size + x;
 	if (GMap1D[index] == 1)
 		return;
+	if (GMap2D[y][x] == 1)
+		return;
 
 	//기존 위치 정리
 	{
 		int index = GPlayerY * Map_size + GPlayerX;
 		GMap1D[index] = 0;
+
+		GMap2D[GPlayerY][GPlayerX] = 0;
 	}
 
 
@@ -34,6 +38,7 @@ void MovePlayer(int x, int y)
 		GPlayerY = y;
 		int index = GPlayerY * Map_size + GPlayerX;
 		GMap1D[index] = 2;
+		GMap2D[GPlayerY][GPlayerX] = 2;
 	}
 
 }

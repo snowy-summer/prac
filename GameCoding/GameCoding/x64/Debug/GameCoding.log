@@ -1,4 +1,5 @@
 ﻿  GameCoding.cpp
-  Helper.cpp
+  Map.cpp
+  Player.cpp
   코드를 생성하고 있습니다...
   GameCoding.vcxproj -> E:\codePrac\GameCoding\x64\Debug\GameCoding.exe

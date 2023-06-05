@@ -24,7 +24,8 @@ int main()
 
 		//출력
 
-		PrintMap1D();
+		//PrintMap1D();
+		PrintMap2D();
 	}
 	
 }
